@@ -1,0 +1,2138 @@
+[
+  {
+    "timestamp": "2026-09-07T17:07:23.360293+00:00",
+    "run_id": "31b966976ee14152aa0d8963f459469c",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.023,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "cleaned_query": "Перевір health і черги воркерів",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:23.363444+00:00",
+    "run_id": "31b966976ee14152aa0d8963f459469c",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 0.1,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "route": "monitor",
+      "route_reason": "Current operational status request",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:25.893882+00:00",
+    "run_id": "31b966976ee14152aa0d8963f459469c",
+    "agent_name": "monitor",
+    "node": "react",
+    "step": 3,
+    "duration_ms": 2628.487,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"monitor\",\n  \"query\": \"Перевір health і черги воркерів\",\n  \"evidence\": [\n    {\n      \"tool\": \"get_system_health\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"overall\": \"healthy\",\n          \"components\": [\n            {\n              \"name\": \"crm_webhook_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 42,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_side_effect_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 37,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_projection_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 55,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"scheduler\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 71,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"order_status_notifier\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 29,\n              \"healthy\": true\n            }\n          ],\n          \"source\": \"sanitized_standalone_fixture\"\n        },\n        \"_call_signature\": \"[\\\"monitor\\\", \\\"get_system_health\\\", {}]\"\n      }\n    },\n    {\n      \"tool\": \"inspect_operations\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"counts\": {\n            \"done\": 2,\n            \"retry\": 0,\n            \"dead\": 1\n          },\n          \"jobs\": [\n            {\n              \"job_id\": \"JOB-SIM-001\",\n              \"component\": \"crm_webhook_worker\",\n              \"status\": \"done\",\n              \"attempts\": 1\n            },\n            {\n              \"job_id\": \"JOB-SIM-002\",\n              \"component\": \"bonus_projection_worker\",\n              \"status\": \"dead\",\n              \"attempts\": 4,\n              \"error_kind\": \"UpstreamTimeout\",\n              \"http_status\": 504,\n              \"endpoint_class\": \"bonus_projection_write\",\n              \"recovered\": false\n            },\n            {\n              \"job_id\": \"JOB-SIM-003\",\n              \"component\": \"order_status_notifier\",\n              \"status\": \"done\",\n              \"attempts\": 2,\n              \"error_kind\": \"TerminalRecipientError\",\n              \"endpoint_class\": \"notification_send\",\n              \"recovered\": true\n            }\n          ],\n          \"window_minutes\": 60,\n          \"pii_redacted\": true\n        },\n        \"_call_signature\": \"[\\\"monitor\\\", \\\"inspect_operations\\\", {}]\"\n      }\n    }\n  ]\n}",
+      "evidence": [
+        {
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"monitor\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 0,
+                "dead": 1
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "dead",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"monitor\", \"inspect_operations\", {}]"
+          }
+        }
+      ],
+      "agents_used": [
+        "supervisor",
+        "monitor"
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations"
+      ],
+      "repeated_calls": {
+        "[\"monitor\", \"get_system_health\", {}]": 1,
+        "[\"monitor\", \"inspect_operations\", {}]": 1
+      },
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:25.897125+00:00",
+    "run_id": "31b966976ee14152aa0d8963f459469c",
+    "agent_name": "monitor",
+    "node": "output_guardrail",
+    "step": 4,
+    "duration_ms": 0.268,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"monitor\",\n  \"query\": \"Перевір health і черги воркерів\",\n  \"evidence\": [\n    {\n      \"tool\": \"get_system_health\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"overall\": \"healthy\",\n          \"components\": [\n            {\n              \"name\": \"crm_webhook_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 42,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_side_effect_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 37,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_projection_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 55,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"scheduler\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 71,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"order_status_notifier\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 29,\n              \"healthy\": true\n            }\n          ],\n          \"source\": \"sanitized_standalone_fixture\"\n        },\n        \"_call_signature\": \"[\\\"monitor\\\", \\\"get_system_health\\\", {}]\"\n      }\n    },\n    {\n      \"tool\": \"inspect_operations\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"counts\": {\n            \"done\": 2,\n            \"retry\": 0,\n            \"dead\": 1\n          },\n          \"jobs\": [\n            {\n              \"job_id\": \"JOB-SIM-001\",\n              \"component\": \"crm_webhook_worker\",\n              \"status\": \"done\",\n              \"attempts\": 1\n            },\n            {\n              \"job_id\": \"JOB-SIM-002\",\n              \"component\": \"bonus_projection_worker\",\n              \"status\": \"dead\",\n              \"attempts\": 4,\n              \"error_kind\": \"UpstreamTimeout\",\n              \"http_status\": 504,\n              \"endpoint_class\": \"bonus_projection_write\",\n              \"recovered\": false\n            },\n            {\n              \"job_id\": \"JOB-SIM-003\",\n              \"component\": \"order_status_notifier\",\n              \"status\": \"done\",\n              \"attempts\": 2,\n              \"error_kind\": \"TerminalRecipientError\",\n              \"endpoint_class\": \"notification_send\",\n              \"recovered\": true\n            }\n          ],\n          \"window_minutes\": 60,\n          \"pii_redacted\": true\n        },\n        \"_call_signature\": \"[\\\"monitor\\\", \\\"inspect_operations\\\", {}]\"\n      }\n    }\n  ]\n}",
+      "pii_types_redacted": [],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:25.920838+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.047,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "cleaned_query": "Розслідуй інцидент bonus projection та перевір integrity",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:25.923527+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 0.033,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "investigator",
+      "route_reason": "Multi-source incident investigation",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:25.926508+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "plan",
+    "step": 3,
+    "duration_ms": 0.051,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan": [
+        {
+          "tool": "get_system_health",
+          "purpose": "Verify current readiness",
+          "args": {}
+        },
+        {
+          "tool": "inspect_operations",
+          "purpose": "Inspect retry/dead jobs",
+          "args": {}
+        },
+        {
+          "tool": "check_bonus_integrity",
+          "purpose": "Check deterministic invariants",
+          "args": {}
+        },
+        {
+          "tool": "search_knowledge",
+          "purpose": "Retrieve applicable recovery policy",
+          "args": {
+            "query": "Розслідуй інцидент bonus projection та перевір integrity",
+            "top_k": 2
+          }
+        }
+      ],
+      "plan_index": 0,
+      "evidence": [],
+      "agents_used": [
+        "supervisor",
+        "investigator"
+      ],
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:27.216134+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 4,
+    "duration_ms": 1286.784,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 1,
+      "evidence": [
+        {
+          "purpose": "Verify current readiness",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1
+      },
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:27.219305+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 5,
+    "duration_ms": 0.003,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "continue",
+      "step_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:28.541288+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 6,
+    "duration_ms": 1319.608,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 2,
+      "evidence": [
+        {
+          "purpose": "Verify current readiness",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "purpose": "Inspect retry/dead jobs",
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 0,
+                "dead": 1
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "dead",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"investigator\", \"inspect_operations\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1,
+        "[\"investigator\", \"inspect_operations\", {}]": 1
+      },
+      "step_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:28.544195+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 7,
+    "duration_ms": 0.003,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "continue",
+      "step_count": 7
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:29.835885+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 8,
+    "duration_ms": 1289.239,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 3,
+      "evidence": [
+        {
+          "purpose": "Verify current readiness",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "purpose": "Inspect retry/dead jobs",
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 0,
+                "dead": 1
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "dead",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"investigator\", \"inspect_operations\", {}]"
+          }
+        },
+        {
+          "purpose": "Check deterministic invariants",
+          "tool": "check_bonus_integrity",
+          "result": {
+            "status": "ok",
+            "data": {
+              "accounts_checked": 560,
+              "negative_balances": 0,
+              "reserved_exceeds_balance": 0,
+              "outcomes_without_ledger": 0,
+              "stuck_projections": 1,
+              "scope": "all",
+              "sample_limit": 1000,
+              "violations": 1
+            },
+            "_call_signature": "[\"investigator\", \"check_bonus_integrity\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations",
+        "check_bonus_integrity"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1,
+        "[\"investigator\", \"inspect_operations\", {}]": 1,
+        "[\"investigator\", \"check_bonus_integrity\", {}]": 1
+      },
+      "step_count": 8
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:29.838994+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 9,
+    "duration_ms": 0.001,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "continue",
+      "step_count": 9
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:31.191849+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 10,
+    "duration_ms": 1349.726,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 4,
+      "evidence": [
+        {
+          "purpose": "Verify current readiness",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "purpose": "Inspect retry/dead jobs",
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 0,
+                "dead": 1
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "dead",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"investigator\", \"inspect_operations\", {}]"
+          }
+        },
+        {
+          "purpose": "Check deterministic invariants",
+          "tool": "check_bonus_integrity",
+          "result": {
+            "status": "ok",
+            "data": {
+              "accounts_checked": 560,
+              "negative_balances": 0,
+              "reserved_exceeds_balance": 0,
+              "outcomes_without_ledger": 0,
+              "stuck_projections": 1,
+              "scope": "all",
+              "sample_limit": 1000,
+              "violations": 1
+            },
+            "_call_signature": "[\"investigator\", \"check_bonus_integrity\", {}]"
+          }
+        },
+        {
+          "purpose": "Retrieve applicable recovery policy",
+          "tool": "search_knowledge",
+          "result": {
+            "status": "ok",
+            "data": {
+              "query": "Розслідуй інцидент bonus projection та перевір integrity",
+              "results": [
+                {
+                  "id": "RB-005",
+                  "topic": "incident",
+                  "text": "Classify active failures separately from recovered events. Stale state, dead jobs and integrity violations require attention.",
+                  "score": 0.1833
+                },
+                {
+                  "id": "RB-008",
+                  "topic": "notifications",
+                  "text": "A handled terminal recipient error with fallback is recovered; an unhandled repeated send failure is active.",
+                  "score": 0.0677
+                }
+              ]
+            },
+            "_call_signature": "[\"investigator\", \"search_knowledge\", {\"query\": \"Розслідуй інцидент bonus projection та перевір integrity\", \"top_k\": 2}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations",
+        "check_bonus_integrity",
+        "search_knowledge"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1,
+        "[\"investigator\", \"inspect_operations\", {}]": 1,
+        "[\"investigator\", \"check_bonus_integrity\", {}]": 1,
+        "[\"investigator\", \"search_knowledge\", {\"query\": \"Розслідуй інцидент bonus projection та перевір integrity\", \"top_k\": 2}]": 1
+      },
+      "step_count": 10
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:31.195110+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 11,
+    "duration_ms": 0.098,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"investigator\",\n  \"query\": \"Розслідуй інцидент bonus projection та перевір integrity\",\n  \"evidence\": [\n    {\n      \"purpose\": \"Verify current readiness\",\n      \"tool\": \"get_system_health\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"overall\": \"healthy\",\n          \"components\": [\n            {\n              \"name\": \"crm_webhook_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 42,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_side_effect_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 37,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_projection_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 55,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"scheduler\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 71,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"order_status_notifier\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 29,\n              \"healthy\": true\n            }\n          ],\n          \"source\": \"sanitized_standalone_fixture\"\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"get_system_health\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Inspect retry/dead jobs\",\n      \"tool\": \"inspect_operations\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"counts\": {\n            \"done\": 2,\n            \"retry\": 0,\n            \"dead\": 1\n          },\n          \"jobs\": [\n            {\n              \"job_id\": \"JOB-SIM-001\",\n              \"component\": \"crm_webhook_worker\",\n              \"status\": \"done\",\n              \"attempts\": 1\n            },\n            {\n              \"job_id\": \"JOB-SIM-002\",\n              \"component\": \"bonus_projection_worker\",\n              \"status\": \"dead\",\n              \"attempts\": 4,\n              \"error_kind\": \"UpstreamTimeout\",\n              \"http_status\": 504,\n              \"endpoint_class\": \"bonus_projection_write\",\n              \"recovered\": false\n            },\n            {\n              \"job_id\": \"JOB-SIM-003\",\n              \"component\": \"order_status_notifier\",\n              \"status\": \"done\",\n              \"attempts\": 2,\n              \"error_kind\": \"TerminalRecipientError\",\n              \"endpoint_class\": \"notification_send\",\n              \"recovered\": true\n            }\n          ],\n          \"window_minutes\": 60,\n          \"pii_redacted\": true\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"inspect_operations\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Check deterministic invariants\",\n      \"tool\": \"check_bonus_integrity\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"accounts_checked\": 560,\n          \"negative_balances\": 0,\n          \"reserved_exceeds_balance\": 0,\n          \"outcomes_without_ledger\": 0,\n          \"stuck_projections\": 1,\n          \"scope\": \"all\",\n          \"sample_limit\": 1000,\n          \"violations\": 1\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"check_bonus_integrity\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Retrieve applicable recovery policy\",\n      \"tool\": \"search_knowledge\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"query\": \"Розслідуй інцидент bonus projection та перевір integrity\",\n          \"results\": [\n            {\n              \"id\": \"RB-005\",\n              \"topic\": \"incident\",\n              \"text\": \"Classify active failures separately from recovered events. Stale state, dead jobs and integrity violations require attention.\",\n              \"score\": 0.1833\n            },\n            {\n              \"id\": \"RB-008\",\n              \"topic\": \"notifications\",\n              \"text\": \"A handled terminal recipient error with fallback is recovered; an unhandled repeated send failure is active.\",\n              \"score\": 0.0677\n            }\n          ]\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"search_knowledge\\\", {\\\"query\\\": \\\"Розслідуй інцидент bonus projection та перевір integrity\\\", \\\"top_k\\\": 2}]\"\n      }\n    }\n  ]\n}",
+      "route": "finish",
+      "step_count": 11
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:31.199070+00:00",
+    "run_id": "25e4ea6305914c259ce78f5a5d066725",
+    "agent_name": "finish",
+    "node": "output_guardrail",
+    "step": 12,
+    "duration_ms": 0.462,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"investigator\",\n  \"query\": \"Розслідуй інцидент bonus projection та перевір integrity\",\n  \"evidence\": [\n    {\n      \"purpose\": \"Verify current readiness\",\n      \"tool\": \"get_system_health\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"overall\": \"healthy\",\n          \"components\": [\n            {\n              \"name\": \"crm_webhook_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 42,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_side_effect_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 37,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"bonus_projection_worker\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 55,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"scheduler\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 71,\n              \"healthy\": true\n            },\n            {\n              \"name\": \"order_status_notifier\",\n              \"ready\": true,\n              \"heartbeat_age_seconds\": 29,\n              \"healthy\": true\n            }\n          ],\n          \"source\": \"sanitized_standalone_fixture\"\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"get_system_health\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Inspect retry/dead jobs\",\n      \"tool\": \"inspect_operations\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"counts\": {\n            \"done\": 2,\n            \"retry\": 0,\n            \"dead\": 1\n          },\n          \"jobs\": [\n            {\n              \"job_id\": \"JOB-SIM-001\",\n              \"component\": \"crm_webhook_worker\",\n              \"status\": \"done\",\n              \"attempts\": 1\n            },\n            {\n              \"job_id\": \"JOB-SIM-002\",\n              \"component\": \"bonus_projection_worker\",\n              \"status\": \"dead\",\n              \"attempts\": 4,\n              \"error_kind\": \"UpstreamTimeout\",\n              \"http_status\": 504,\n              \"endpoint_class\": \"bonus_projection_write\",\n              \"recovered\": false\n            },\n            {\n              \"job_id\": \"JOB-SIM-003\",\n              \"component\": \"order_status_notifier\",\n              \"status\": \"done\",\n              \"attempts\": 2,\n              \"error_kind\": \"TerminalRecipientError\",\n              \"endpoint_class\": \"notification_send\",\n              \"recovered\": true\n            }\n          ],\n          \"window_minutes\": 60,\n          \"pii_redacted\": true\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"inspect_operations\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Check deterministic invariants\",\n      \"tool\": \"check_bonus_integrity\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"accounts_checked\": 560,\n          \"negative_balances\": 0,\n          \"reserved_exceeds_balance\": 0,\n          \"outcomes_without_ledger\": 0,\n          \"stuck_projections\": 1,\n          \"scope\": \"all\",\n          \"sample_limit\": 1000,\n          \"violations\": 1\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"check_bonus_integrity\\\", {}]\"\n      }\n    },\n    {\n      \"purpose\": \"Retrieve applicable recovery policy\",\n      \"tool\": \"search_knowledge\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"query\": \"Розслідуй інцидент bonus projection та перевір integrity\",\n          \"results\": [\n            {\n              \"id\": \"RB-005\",\n              \"topic\": \"incident\",\n              \"text\": \"Classify active failures separately from recovered events. Stale state, dead jobs and integrity violations require attention.\",\n              \"score\": 0.1833\n            },\n            {\n              \"id\": \"RB-008\",\n              \"topic\": \"notifications\",\n              \"text\": \"A handled terminal recipient error with fallback is recovered; an unhandled repeated send failure is active.\",\n              \"score\": 0.0677\n            }\n          ]\n        },\n        \"_call_signature\": \"[\\\"investigator\\\", \\\"search_knowledge\\\", {\\\"query\\\": \\\"Розслідуй інцидент bonus projection та перевір integrity\\\", \\\"top_k\\\": 2}]\"\n      }\n    }\n  ]\n}",
+      "pii_types_redacted": [],
+      "step_count": 12
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:31.232259+00:00",
+    "run_id": "bc2d058b66f84a2d8208a06fb1a94251",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.038,
+    "input": {
+      "query": "Який runbook визначає безпечний retry та HITL?"
+    },
+    "output": {
+      "cleaned_query": "Який runbook визначає безпечний retry та HITL?",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:31.235324+00:00",
+    "run_id": "bc2d058b66f84a2d8208a06fb1a94251",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 0.029,
+    "input": {
+      "query": "Який runbook визначає безпечний retry та HITL?"
+    },
+    "output": {
+      "route": "researcher",
+      "route_reason": "Knowledge or recovery-policy request",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:32.619107+00:00",
+    "run_id": "bc2d058b66f84a2d8208a06fb1a94251",
+    "agent_name": "researcher",
+    "node": "agentic_rag",
+    "step": 3,
+    "duration_ms": 1380.355,
+    "input": {
+      "query": "Який runbook визначає безпечний retry та HITL?"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"researcher\",\n  \"query\": \"Який runbook визначає безпечний retry та HITL?\",\n  \"evidence\": [\n    {\n      \"tool\": \"search_knowledge\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"query\": \"Який runbook визначає безпечний retry та HITL?\",\n          \"results\": [\n            {\n              \"id\": \"RB-002\",\n              \"topic\": \"queues\",\n              \"text\": \"Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.\",\n              \"score\": 0.1033\n            },\n            {\n              \"id\": \"RB-004\",\n              \"topic\": \"remediation\",\n              \"text\": \"Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.\",\n              \"score\": 0.1023\n            },\n            {\n              \"id\": \"RB-003\",\n              \"topic\": \"integrity\",\n              \"text\": \"Balance must stay non-negative, reserved cannot exceed balance, every outcome requires a ledger record, and projections cannot remain stuck.\",\n              \"score\": 0.0245\n            }\n          ]\n        },\n        \"_call_signature\": \"[\\\"researcher\\\", \\\"search_knowledge\\\", {\\\"query\\\": \\\"Який runbook визначає безпечний retry та HITL?\\\", \\\"top_k\\\": 3}]\"\n      }\n    }\n  ]\n}",
+      "evidence": [
+        {
+          "tool": "search_knowledge",
+          "result": {
+            "status": "ok",
+            "data": {
+              "query": "Який runbook визначає безпечний retry та HITL?",
+              "results": [
+                {
+                  "id": "RB-002",
+                  "topic": "queues",
+                  "text": "Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.",
+                  "score": 0.1033
+                },
+                {
+                  "id": "RB-004",
+                  "topic": "remediation",
+                  "text": "Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.",
+                  "score": 0.1023
+                },
+                {
+                  "id": "RB-003",
+                  "topic": "integrity",
+                  "text": "Balance must stay non-negative, reserved cannot exceed balance, every outcome requires a ledger record, and projections cannot remain stuck.",
+                  "score": 0.0245
+                }
+              ]
+            },
+            "_call_signature": "[\"researcher\", \"search_knowledge\", {\"query\": \"Який runbook визначає безпечний retry та HITL?\", \"top_k\": 3}]"
+          }
+        }
+      ],
+      "agents_used": [
+        "supervisor",
+        "researcher"
+      ],
+      "tools_called": [
+        "search_knowledge"
+      ],
+      "repeated_calls": {
+        "[\"researcher\", \"search_knowledge\", {\"query\": \"Який runbook визначає безпечний retry та HITL?\", \"top_k\": 3}]": 1
+      },
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:32.622669+00:00",
+    "run_id": "bc2d058b66f84a2d8208a06fb1a94251",
+    "agent_name": "researcher",
+    "node": "output_guardrail",
+    "step": 4,
+    "duration_ms": 0.158,
+    "input": {
+      "query": "Який runbook визначає безпечний retry та HITL?"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"researcher\",\n  \"query\": \"Який runbook визначає безпечний retry та HITL?\",\n  \"evidence\": [\n    {\n      \"tool\": \"search_knowledge\",\n      \"result\": {\n        \"status\": \"ok\",\n        \"data\": {\n          \"query\": \"Який runbook визначає безпечний retry та HITL?\",\n          \"results\": [\n            {\n              \"id\": \"RB-002\",\n              \"topic\": \"queues\",\n              \"text\": \"Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.\",\n              \"score\": 0.1033\n            },\n            {\n              \"id\": \"RB-004\",\n              \"topic\": \"remediation\",\n              \"text\": \"Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.\",\n              \"score\": 0.1023\n            },\n            {\n              \"id\": \"RB-003\",\n              \"topic\": \"integrity\",\n              \"text\": \"Balance must stay non-negative, reserved cannot exceed balance, every outcome requires a ledger record, and projections cannot remain stuck.\",\n              \"score\": 0.0245\n            }\n          ]\n        },\n        \"_call_signature\": \"[\\\"researcher\\\", \\\"search_knowledge\\\", {\\\"query\\\": \\\"Який runbook визначає безпечний retry та HITL?\\\", \\\"top_k\\\": 3}]\"\n      }\n    }\n  ]\n}",
+      "pii_types_redacted": [],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:35.675713+00:00",
+    "run_id": "003a6f4749b34cd4bc54e599237f0384",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.021,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "cleaned_query": "Виконай retry для JOB-SIM-002",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:35.679128+00:00",
+    "run_id": "003a6f4749b34cd4bc54e599237f0384",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 0.089,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "route": "remediation",
+      "route_reason": "Explicit single-job remediation intent",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:35.682724+00:00",
+    "run_id": "003a6f4749b34cd4bc54e599237f0384",
+    "agent_name": "remediation",
+    "node": "prepare",
+    "step": 3,
+    "duration_ms": 0.039,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "pending_approval": {
+        "tool": "retry_failed_job",
+        "args": {
+          "job_id": "JOB-SIM-002",
+          "expected_status": "dead",
+          "reason": "operator approved synthetic demo retry",
+          "idempotency_key": "demo-a4eeb6143b0450dd"
+        },
+        "rationale": "Single-job retry with optimistic status and idempotency"
+      },
+      "agents_used": [
+        "supervisor",
+        "remediation"
+      ],
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:38.176874+00:00",
+    "run_id": "003a6f4749b34cd4bc54e599237f0384",
+    "agent_name": "remediation",
+    "node": "approval_and_execute",
+    "step": 4,
+    "duration_ms": 1312.768,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "approval": {
+        "action": "approve",
+        "reason": "operator CLI demo",
+        "args": null
+      },
+      "answer": "{\n  \"agent\": \"remediation\",\n  \"query\": \"Виконай retry для JOB-SIM-002\",\n  \"evidence\": {\n    \"approved_action\": \"retry_failed_job\",\n    \"result\": {\n      \"status\": \"ok\",\n      \"data\": {\n        \"remediation_id\": \"REM-2F871D715E\",\n        \"job_id\": \"JOB-SIM-002\",\n        \"previous_status\": \"dead\",\n        \"new_status\": \"retry\",\n        \"idempotent_replay\": false\n      },\n      \"_call_signature\": \"[\\\"remediation\\\", \\\"retry_failed_job\\\", {\\\"expected_status\\\": \\\"dead\\\", \\\"idempotency_key\\\": \\\"demo-a4eeb6143b0450dd\\\", \\\"job_id\\\": \\\"JOB-SIM-002\\\", \\\"reason\\\": \\\"operator approved synthetic demo retry\\\"}]\"\n    }\n  }\n}",
+      "tools_called": [
+        "retry_failed_job"
+      ],
+      "evidence": [
+        {
+          "status": "ok",
+          "data": {
+            "remediation_id": "REM-2F871D715E",
+            "job_id": "JOB-SIM-002",
+            "previous_status": "dead",
+            "new_status": "retry",
+            "idempotent_replay": false
+          },
+          "_call_signature": "[\"remediation\", \"retry_failed_job\", {\"expected_status\": \"dead\", \"idempotency_key\": \"demo-a4eeb6143b0450dd\", \"job_id\": \"JOB-SIM-002\", \"reason\": \"operator approved synthetic demo retry\"}]"
+        }
+      ],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:07:38.181426+00:00",
+    "run_id": "003a6f4749b34cd4bc54e599237f0384",
+    "agent_name": "remediation",
+    "node": "output_guardrail",
+    "step": 5,
+    "duration_ms": 0.079,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"remediation\",\n  \"query\": \"Виконай retry для JOB-SIM-002\",\n  \"evidence\": {\n    \"approved_action\": \"retry_failed_job\",\n    \"result\": {\n      \"status\": \"ok\",\n      \"data\": {\n        \"remediation_id\": \"REM-2F871D715E\",\n        \"job_id\": \"JOB-SIM-002\",\n        \"previous_status\": \"dead\",\n        \"new_status\": \"retry\",\n        \"idempotent_replay\": false\n      },\n      \"_call_signature\": \"[\\\"remediation\\\", \\\"retry_failed_job\\\", {\\\"expected_status\\\": \\\"dead\\\", \\\"idempotency_key\\\": \\\"demo-a4eeb6143b0450dd\\\", \\\"job_id\\\": \\\"JOB-SIM-002\\\", \\\"reason\\\": \\\"operator approved synthetic demo retry\\\"}]\"\n    }\n  }\n}",
+      "pii_types_redacted": [],
+      "step_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:08:22.437157+00:00",
+    "run_id": "0fbfbdc0d202419795af55539cbcc158",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.026,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "cleaned_query": "Виконай retry для JOB-SIM-002",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:08:22.441246+00:00",
+    "run_id": "0fbfbdc0d202419795af55539cbcc158",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 0.066,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "route": "remediation",
+      "route_reason": "Explicit single-job remediation intent",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:08:22.444941+00:00",
+    "run_id": "0fbfbdc0d202419795af55539cbcc158",
+    "agent_name": "remediation",
+    "node": "prepare",
+    "step": 3,
+    "duration_ms": 0.039,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "pending_approval": {
+        "tool": "retry_failed_job",
+        "args": {
+          "job_id": "JOB-SIM-002",
+          "expected_status": "dead",
+          "reason": "operator approved synthetic demo retry",
+          "idempotency_key": "demo-a4eeb6143b0450dd"
+        },
+        "rationale": "Single-job retry with optimistic status and idempotency"
+      },
+      "agents_used": [
+        "supervisor",
+        "remediation"
+      ],
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:08:24.878130+00:00",
+    "run_id": "0fbfbdc0d202419795af55539cbcc158",
+    "agent_name": "remediation",
+    "node": "approval_and_execute",
+    "step": 4,
+    "duration_ms": 1328.94,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "approval": {
+        "action": "approve",
+        "reason": "operator CLI demo",
+        "args": null
+      },
+      "answer": "{\n  \"agent\": \"remediation\",\n  \"query\": \"Виконай retry для JOB-SIM-002\",\n  \"evidence\": {\n    \"approved_action\": \"retry_failed_job\",\n    \"result\": {\n      \"status\": \"ok\",\n      \"data\": {\n        \"remediation_id\": \"REM-2F871D715E\",\n        \"job_id\": \"JOB-SIM-002\",\n        \"previous_status\": \"dead\",\n        \"new_status\": \"retry\",\n        \"idempotent_replay\": false\n      },\n      \"_call_signature\": \"[\\\"remediation\\\", \\\"retry_failed_job\\\", {\\\"expected_status\\\": \\\"dead\\\", \\\"idempotency_key\\\": \\\"demo-a4eeb6143b0450dd\\\", \\\"job_id\\\": \\\"JOB-SIM-002\\\", \\\"reason\\\": \\\"operator approved synthetic demo retry\\\"}]\"\n    }\n  }\n}",
+      "tools_called": [
+        "retry_failed_job"
+      ],
+      "evidence": [
+        {
+          "status": "ok",
+          "data": {
+            "remediation_id": "REM-2F871D715E",
+            "job_id": "JOB-SIM-002",
+            "previous_status": "dead",
+            "new_status": "retry",
+            "idempotent_replay": false
+          },
+          "_call_signature": "[\"remediation\", \"retry_failed_job\", {\"expected_status\": \"dead\", \"idempotency_key\": \"demo-a4eeb6143b0450dd\", \"job_id\": \"JOB-SIM-002\", \"reason\": \"operator approved synthetic demo retry\"}]"
+        }
+      ],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:08:24.882435+00:00",
+    "run_id": "0fbfbdc0d202419795af55539cbcc158",
+    "agent_name": "remediation",
+    "node": "output_guardrail",
+    "step": 5,
+    "duration_ms": 0.077,
+    "input": {
+      "query": "Виконай retry для JOB-SIM-002"
+    },
+    "output": {
+      "answer": "{\n  \"agent\": \"remediation\",\n  \"query\": \"Виконай retry для JOB-SIM-002\",\n  \"evidence\": {\n    \"approved_action\": \"retry_failed_job\",\n    \"result\": {\n      \"status\": \"ok\",\n      \"data\": {\n        \"remediation_id\": \"REM-2F871D715E\",\n        \"job_id\": \"JOB-SIM-002\",\n        \"previous_status\": \"dead\",\n        \"new_status\": \"retry\",\n        \"idempotent_replay\": false\n      },\n      \"_call_signature\": \"[\\\"remediation\\\", \\\"retry_failed_job\\\", {\\\"expected_status\\\": \\\"dead\\\", \\\"idempotency_key\\\": \\\"demo-a4eeb6143b0450dd\\\", \\\"job_id\\\": \\\"JOB-SIM-002\\\", \\\"reason\\\": \\\"operator approved synthetic demo retry\\\"}]\"\n    }\n  }\n}",
+      "pii_types_redacted": [],
+      "step_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:44:58.469820+00:00",
+    "run_id": "ddc1729f6364467694593ebd062307e0",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.095,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "cleaned_query": "Перевір health і черги воркерів",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:45:01.344274+00:00",
+    "run_id": "ddc1729f6364467694593ebd062307e0",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 2869.583,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "route": "monitor",
+      "route_reason": "Запит стосується поточного стану системи: health і черги воркерів. Це відповідає моніторингу, без ознак інциденту чи потреби в runbook/ремедіації.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:45:08.655379+00:00",
+    "run_id": "ddc1729f6364467694593ebd062307e0",
+    "agent_name": "monitor",
+    "node": "react",
+    "step": 3,
+    "duration_ms": 7304.892,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "**Health:** `ok` / overall `healthy`\n\n**Воркери:**\n- `crm_webhook_worker` — ready, healthy, heartbeat 42s\n- `bonus_side_effect_worker` — ready, healthy, heartbeat 37s\n- `bonus_projection_worker` — ready, healthy, heartbeat 55s\n- `scheduler` — ready, healthy, heartbeat 71s\n- `order_status_notifier` — ready, healthy, heartbeat 29s\n\n**Черги / операції за 60 хв:**\n- `done`: 2\n- `retry`: 1\n- `dead`: 0\n\n**Активні проблеми:**\n- `JOB-SIM-002` — `bonus_projection_worker`, статус `retry`, 4 спроби, `UpstreamTimeout`, HTTP `504`, `recovered: false`\n\n**Відновлена історія:**\n- `JOB-SIM-003` — `order_status_notifier`, статус `done`, 2 спроби, `TerminalRecipientError`, `recovered: true`",
+      "evidence": [
+        {
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"monitor\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 1,
+                "dead": 0
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "retry",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"monitor\", \"inspect_operations\", {}]"
+          }
+        }
+      ],
+      "agents_used": [
+        "supervisor",
+        "monitor"
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations"
+      ],
+      "repeated_calls": {
+        "[\"monitor\", \"get_system_health\", {}]": 1,
+        "[\"monitor\", \"inspect_operations\", {}]": 1
+      },
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:45:08.660270+00:00",
+    "run_id": "ddc1729f6364467694593ebd062307e0",
+    "agent_name": "monitor",
+    "node": "output_guardrail",
+    "step": 4,
+    "duration_ms": 0.08,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "**Health:** `ok` / overall `healthy`\n\n**Воркери:**\n- `crm_webhook_worker` — ready, healthy, heartbeat 42s\n- `bonus_side_effect_worker` — ready, healthy, heartbeat 37s\n- `bonus_projection_worker` — ready, healthy, heartbeat 55s\n- `scheduler` — ready, healthy, heartbeat 71s\n- `order_status_notifier` — ready, healthy, heartbeat 29s\n\n**Черги / операції за 60 хв:**\n- `done`: 2\n- `retry`: 1\n- `dead`: 0\n\n**Активні проблеми:**\n- `JOB-SIM-002` — `bonus_projection_worker`, статус `retry`, 4 спроби, `UpstreamTimeout`, HTTP `504`, `recovered: false`\n\n**Відновлена історія:**\n- `JOB-SIM-003` — `order_status_notifier`, статус `done`, 2 спроби, `TerminalRecipientError`, `recovered: true`",
+      "pii_types_redacted": [],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:46:21.968173+00:00",
+    "run_id": "519d0e9fb4964000af8a88c8bfd3d4b6",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.049,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "cleaned_query": "Перевір health і черги воркерів",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:46:24.988158+00:00",
+    "run_id": "519d0e9fb4964000af8a88c8bfd3d4b6",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 3015.056,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "route": "monitor",
+      "route_reason": "User asks to check current health and worker queues, which is a live status/telemetry request. Route to monitoring rather than investigation or remediation.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:46:30.522382+00:00",
+    "run_id": "519d0e9fb4964000af8a88c8bfd3d4b6",
+    "agent_name": "monitor",
+    "node": "react",
+    "step": 3,
+    "duration_ms": 5528.338,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "Стан: **healthy / ok**.\n\n### Черги та воркери\nУсі воркери **ready=true** і **healthy=true**:\n- `crm_webhook_worker` — heartbeat 42s\n- `bonus_side_effect_worker` — 37s\n- `bonus_projection_worker` — 55s\n- `scheduler` — 71s\n- `order_status_notifier` — 29s\n\n### Черги/операції за останні 60 хв\n- `done`: 2\n- `retry`: 1\n- `dead`: 0\n\n### Активні проблеми\n- `JOB-SIM-002` / `bonus_projection_worker` — статус **retry**, 4 спроби, `UpstreamTimeout` (HTTP 504), `recovered=false`\n\n### Відновлені історичні випадки\n- `JOB-SIM-003` / `order_status_notifier` — було `TerminalRecipientError`, але **recovered=true**",
+      "evidence": [
+        {
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"monitor\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 1,
+                "dead": 0
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "retry",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"monitor\", \"inspect_operations\", {}]"
+          }
+        }
+      ],
+      "agents_used": [
+        "supervisor",
+        "monitor"
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations"
+      ],
+      "repeated_calls": {
+        "[\"monitor\", \"get_system_health\", {}]": 1,
+        "[\"monitor\", \"inspect_operations\", {}]": 1
+      },
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:46:30.527504+00:00",
+    "run_id": "519d0e9fb4964000af8a88c8bfd3d4b6",
+    "agent_name": "monitor",
+    "node": "output_guardrail",
+    "step": 4,
+    "duration_ms": 0.079,
+    "input": {
+      "query": "Перевір health і черги воркерів"
+    },
+    "output": {
+      "answer": "Стан: **healthy / ok**.\n\n### Черги та воркери\nУсі воркери **ready=true** і **healthy=true**:\n- `crm_webhook_worker` — heartbeat 42s\n- `bonus_side_effect_worker` — 37s\n- `bonus_projection_worker` — 55s\n- `scheduler` — 71s\n- `order_status_notifier` — 29s\n\n### Черги/операції за останні 60 хв\n- `done`: 2\n- `retry`: 1\n- `dead`: 0\n\n### Активні проблеми\n- `JOB-SIM-002` / `bonus_projection_worker` — статус **retry**, 4 спроби, `UpstreamTimeout` (HTTP 504), `recovered=false`\n\n### Відновлені історичні випадки\n- `JOB-SIM-003` / `order_status_notifier` — було `TerminalRecipientError`, але **recovered=true**",
+      "pii_types_redacted": [],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:02.508596+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.041,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "cleaned_query": "Розслідуй інцидент bonus projection та перевір integrity",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:04.743018+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 2228.966,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "investigator",
+      "route_reason": "User requests investigation of a bonus projection incident and integrity verification, which implies multi-source analysis and validation rather than a single remediation step.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:06.434760+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "plan",
+    "step": 3,
+    "duration_ms": 1686.506,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan": [
+        {
+          "tool": "get_system_health",
+          "purpose": "Оцінити загальний стан системи та виявити пов’язані збої",
+          "args": {}
+        },
+        {
+          "tool": "inspect_operations",
+          "purpose": "Перевірити операційні події bonus projection і контекст інциденту",
+          "args": {}
+        },
+        {
+          "tool": "check_bonus_integrity",
+          "purpose": "Перевірити integrity даних/розрахунків bonus projection",
+          "args": {}
+        }
+      ],
+      "plan_index": 0,
+      "evidence": [],
+      "agents_used": [
+        "supervisor",
+        "investigator"
+      ],
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:08.032297+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 4,
+    "duration_ms": 1592.784,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 1,
+      "evidence": [
+        {
+          "purpose": "Оцінити загальний стан системи та виявити пов’язані збої",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1
+      },
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:08.037779+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 5,
+    "duration_ms": 0.004,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "continue",
+      "step_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:09.597122+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 6,
+    "duration_ms": 1554.26,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 2,
+      "evidence": [
+        {
+          "purpose": "Оцінити загальний стан системи та виявити пов’язані збої",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "purpose": "Перевірити операційні події bonus projection і контекст інциденту",
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 1,
+                "dead": 0
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "retry",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"investigator\", \"inspect_operations\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1,
+        "[\"investigator\", \"inspect_operations\", {}]": 1
+      },
+      "step_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:09.602565+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 7,
+    "duration_ms": 0.004,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "route": "continue",
+      "step_count": 7
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:11.083414+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "execute",
+    "step": 8,
+    "duration_ms": 1475.911,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "plan_index": 3,
+      "evidence": [
+        {
+          "purpose": "Оцінити загальний стан системи та виявити пов’язані збої",
+          "tool": "get_system_health",
+          "result": {
+            "status": "ok",
+            "data": {
+              "overall": "healthy",
+              "components": [
+                {
+                  "name": "crm_webhook_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 42,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_side_effect_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 37,
+                  "healthy": true
+                },
+                {
+                  "name": "bonus_projection_worker",
+                  "ready": true,
+                  "heartbeat_age_seconds": 55,
+                  "healthy": true
+                },
+                {
+                  "name": "scheduler",
+                  "ready": true,
+                  "heartbeat_age_seconds": 71,
+                  "healthy": true
+                },
+                {
+                  "name": "order_status_notifier",
+                  "ready": true,
+                  "heartbeat_age_seconds": 29,
+                  "healthy": true
+                }
+              ],
+              "source": "sanitized_standalone_fixture"
+            },
+            "_call_signature": "[\"investigator\", \"get_system_health\", {}]"
+          }
+        },
+        {
+          "purpose": "Перевірити операційні події bonus projection і контекст інциденту",
+          "tool": "inspect_operations",
+          "result": {
+            "status": "ok",
+            "data": {
+              "counts": {
+                "done": 2,
+                "retry": 1,
+                "dead": 0
+              },
+              "jobs": [
+                {
+                  "job_id": "JOB-SIM-001",
+                  "component": "crm_webhook_worker",
+                  "status": "done",
+                  "attempts": 1
+                },
+                {
+                  "job_id": "JOB-SIM-002",
+                  "component": "bonus_projection_worker",
+                  "status": "retry",
+                  "attempts": 4,
+                  "error_kind": "UpstreamTimeout",
+                  "http_status": 504,
+                  "endpoint_class": "bonus_projection_write",
+                  "recovered": false
+                },
+                {
+                  "job_id": "JOB-SIM-003",
+                  "component": "order_status_notifier",
+                  "status": "done",
+                  "attempts": 2,
+                  "error_kind": "TerminalRecipientError",
+                  "endpoint_class": "notification_send",
+                  "recovered": true
+                }
+              ],
+              "window_minutes": 60,
+              "pii_redacted": true
+            },
+            "_call_signature": "[\"investigator\", \"inspect_operations\", {}]"
+          }
+        },
+        {
+          "purpose": "Перевірити integrity даних/розрахунків bonus projection",
+          "tool": "check_bonus_integrity",
+          "result": {
+            "status": "ok",
+            "data": {
+              "accounts_checked": 560,
+              "negative_balances": 0,
+              "reserved_exceeds_balance": 0,
+              "outcomes_without_ledger": 0,
+              "stuck_projections": 1,
+              "scope": "all",
+              "sample_limit": 1000,
+              "violations": 1
+            },
+            "_call_signature": "[\"investigator\", \"check_bonus_integrity\", {}]"
+          }
+        }
+      ],
+      "tools_called": [
+        "get_system_health",
+        "inspect_operations",
+        "check_bonus_integrity"
+      ],
+      "repeated_calls": {
+        "[\"investigator\", \"get_system_health\", {}]": 1,
+        "[\"investigator\", \"inspect_operations\", {}]": 1,
+        "[\"investigator\", \"check_bonus_integrity\", {}]": 1
+      },
+      "step_count": 8
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:14.589919+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "investigator",
+    "node": "replan",
+    "step": 9,
+    "duration_ms": 3500.971,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "answer": "**Висновок по інциденту bonus projection та integrity**\n\n- **Стан системи:** загалом **healthy**, усі ключові компоненти ready/healthy.\n- **Операційний збій:** є **1 проблемний job** у `bonus_projection_worker`:\n  - `JOB-SIM-002`\n  - статус: `retry`\n  - **4 спроби**\n  - помилка: **UpstreamTimeout**\n  - HTTP: **504**\n  - клас endpoint: `bonus_projection_write`\n  - **не відновився**\n- **Integrity-перевірка:** критичних порушень не виявлено:\n  - `negative_balances = 0`\n  - `reserved_exceeds_balance = 0`\n  - `outcomes_without_ledger = 0`\n  - **`stuck_projections = 1`**\n  - `violations = 1`\n\n### Оцінка\nІнцидент виглядає як **локальна проблема запису/публікації bonus projection**, а не як масове псування даних.  \n**Integrity в цілому збережена**, але є **1 зависла projection**, яку треба розібрати окремо.\n\n### Що це означає\n- Дані балансу/резервів **не зіпсовані**.\n- Є **один незавершений projection**, ймовірно через upstream timeout на запис.\n- Ризик зараз — **неузгоджений стан однієї операції**, а не системна деградація.\n\n### Рекомендація\n1. Перевірити конкретний `bonus_projection_write` upstream на таймаути.\n2. Визначити стан `JOB-SIM-002` і чи безпечно його **replay/retry**.\n3. Моніторити, чи не з’являються нові `stuck_projections`.\n\nЯкщо хочеш, я можу далі сформувати **короткий RCA** або **план remediation**.",
+      "route": "finish",
+      "step_count": 9
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:14.595603+00:00",
+    "run_id": "ae301bb7099940a8a1f9d221e0a17a49",
+    "agent_name": "finish",
+    "node": "output_guardrail",
+    "step": 10,
+    "duration_ms": 0.146,
+    "input": {
+      "query": "Розслідуй інцидент bonus projection та перевір integrity"
+    },
+    "output": {
+      "answer": "**Висновок по інциденту bonus projection та integrity**\n\n- **Стан системи:** загалом **healthy**, усі ключові компоненти ready/healthy.\n- **Операційний збій:** є **1 проблемний job** у `bonus_projection_worker`:\n  - `JOB-SIM-002`\n  - статус: `retry`\n  - **4 спроби**\n  - помилка: **UpstreamTimeout**\n  - HTTP: **504**\n  - клас endpoint: `bonus_projection_write`\n  - **не відновився**\n- **Integrity-перевірка:** критичних порушень не виявлено:\n  - `negative_balances = 0`\n  - `reserved_exceeds_balance = 0`\n  - `outcomes_without_ledger = 0`\n  - **`stuck_projections = 1`**\n  - `violations = 1`\n\n### Оцінка\nІнцидент виглядає як **локальна проблема запису/публікації bonus projection**, а не як масове псування даних.  \n**Integrity в цілому збережена**, але є **1 зависла projection**, яку треба розібрати окремо.\n\n### Що це означає\n- Дані балансу/резервів **не зіпсовані**.\n- Є **один незавершений projection**, ймовірно через upstream timeout на запис.\n- Ризик зараз — **неузгоджений стан однієї операції**, а не системна деградація.\n\n### Рекомендація\n1. Перевірити конкретний `bonus_projection_write` upstream на таймаути.\n2. Визначити стан `JOB-SIM-002` і чи безпечно його **replay/retry**.\n3. Моніторити, чи не з’являються нові `stuck_projections`.\n\nЯкщо хочеш, я можу далі сформувати **короткий RCA** або **план remediation**.",
+      "pii_types_redacted": [],
+      "step_count": 10
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:18.334825+00:00",
+    "run_id": "2d197553a7bc47fcb0724dff7e4e9e8f",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.031,
+    "input": {
+      "query": "Знайди runbook щодо idempotent retry і HITL"
+    },
+    "output": {
+      "cleaned_query": "Знайди runbook щодо idempotent retry і HITL",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:20.618917+00:00",
+    "run_id": "2d197553a7bc47fcb0724dff7e4e9e8f",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 2278.702,
+    "input": {
+      "query": "Знайди runbook щодо idempotent retry і HITL"
+    },
+    "output": {
+      "route": "researcher",
+      "route_reason": "User asks to find a runbook about idempotent retry and HITL, which is a documentation/runbook lookup task best routed to the researcher path.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:24.435091+00:00",
+    "run_id": "2d197553a7bc47fcb0724dff7e4e9e8f",
+    "agent_name": "researcher",
+    "node": "agentic_rag",
+    "step": 3,
+    "duration_ms": 3810.648,
+    "input": {
+      "query": "Знайди runbook щодо idempotent retry і HITL"
+    },
+    "output": {
+      "answer": "Знайшов релевантні runbook-и в ChromaDB:\n\n- **RB-004 (remediation)** — про **idempotent retry**: “Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.”\n- **RB-010 (hitl)** — про **HITL**: “Side effects require approve, reject or edit. Edited arguments are fully revalidated and approval is bound to one action.”\n- Додатково **RB-002 (queues)** — якщо треба перевірка черги/беклогу перед retry: pending, retry, dead, oldest age, attempts.\n\n**Policy:** retry має бути лише для **одного верифікованого job**, з **idempotency key** і **human approval**; bulk retry заборонений.  \n**Live system state:** у наданих даних не міститься фактичного стану системи, лише знання з runbook.",
+      "evidence": [
+        {
+          "tool": "search_knowledge",
+          "result": {
+            "status": "ok",
+            "data": {
+              "query": "Знайди runbook щодо idempotent retry і HITL",
+              "results": [
+                {
+                  "id": "RB-004",
+                  "topic": "remediation",
+                  "text": "Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.",
+                  "score": 0.1826
+                },
+                {
+                  "id": "RB-002",
+                  "topic": "queues",
+                  "text": "Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.",
+                  "score": 0.1401
+                },
+                {
+                  "id": "RB-010",
+                  "topic": "hitl",
+                  "text": "Side effects require approve, reject or edit. Edited arguments are fully revalidated and approval is bound to one action.",
+                  "score": 0.0255
+                }
+              ]
+            },
+            "_call_signature": "[\"researcher\", \"search_knowledge\", {\"query\": \"Знайди runbook щодо idempotent retry і HITL\", \"top_k\": 3}]"
+          }
+        }
+      ],
+      "agents_used": [
+        "supervisor",
+        "researcher"
+      ],
+      "tools_called": [
+        "search_knowledge"
+      ],
+      "repeated_calls": {
+        "[\"researcher\", \"search_knowledge\", {\"query\": \"Знайди runbook щодо idempotent retry і HITL\", \"top_k\": 3}]": 1
+      },
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:24.440419+00:00",
+    "run_id": "2d197553a7bc47fcb0724dff7e4e9e8f",
+    "agent_name": "researcher",
+    "node": "output_guardrail",
+    "step": 4,
+    "duration_ms": 0.088,
+    "input": {
+      "query": "Знайди runbook щодо idempotent retry і HITL"
+    },
+    "output": {
+      "answer": "Знайшов релевантні runbook-и в ChromaDB:\n\n- **RB-004 (remediation)** — про **idempotent retry**: “Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.”\n- **RB-010 (hitl)** — про **HITL**: “Side effects require approve, reject or edit. Edited arguments are fully revalidated and approval is bound to one action.”\n- Додатково **RB-002 (queues)** — якщо треба перевірка черги/беклогу перед retry: pending, retry, dead, oldest age, attempts.\n\n**Policy:** retry має бути лише для **одного верифікованого job**, з **idempotency key** і **human approval**; bulk retry заборонений.  \n**Live system state:** у наданих даних не міститься фактичного стану системи, лише знання з runbook.",
+      "pii_types_redacted": [],
+      "step_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:28.276274+00:00",
+    "run_id": "457c42008fbe431f8b122cb4ed02d40a",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.026,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "cleaned_query": "Підготуй retry для JOB-SIM-002",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:29.855017+00:00",
+    "run_id": "457c42008fbe431f8b122cb4ed02d40a",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 1572.94,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "route": "remediation",
+      "route_reason": "Single-job action requested: prepare a retry for JOB-SIM-002. No incident triage or multi-source investigation needed.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:29.860297+00:00",
+    "run_id": "457c42008fbe431f8b122cb4ed02d40a",
+    "agent_name": "remediation",
+    "node": "prepare",
+    "step": 3,
+    "duration_ms": 0.109,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "pending_approval": {
+        "tool": "retry_failed_job",
+        "args": {
+          "job_id": "JOB-SIM-002",
+          "expected_status": "dead",
+          "reason": "operator approved synthetic demo retry",
+          "idempotency_key": "demo-a4eeb6143b0450dd"
+        },
+        "rationale": "Single-job retry with optimistic status and idempotency"
+      },
+      "agents_used": [
+        "supervisor",
+        "remediation"
+      ],
+      "step_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:40.844862+00:00",
+    "run_id": "2db077a3b5214fd495e5850fa6fef3b5",
+    "agent_name": "supervisor",
+    "node": "input_guardrail",
+    "step": 1,
+    "duration_ms": 0.027,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "cleaned_query": "Підготуй retry для JOB-SIM-002",
+      "step_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:42.744921+00:00",
+    "run_id": "2db077a3b5214fd495e5850fa6fef3b5",
+    "agent_name": "supervisor",
+    "node": "route",
+    "step": 2,
+    "duration_ms": 1893.973,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "route": "remediation",
+      "route_reason": "User requests a single explicit action for JOB-SIM-002 retry preparation, which fits remediation.",
+      "agents_used": [
+        "supervisor"
+      ],
+      "step_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-09-07T17:48:42.750243+00:00",
+    "run_id": "2db077a3b5214fd495e5850fa6fef3b5",
+    "agent_name": "remediation",
+    "node": "prepare",
+    "step": 3,
+    "duration_ms": 0.103,
+    "input": {
+      "query": "Підготуй retry для JOB-SIM-002"
+    },
+    "output": {
+      "pending_approval": {
+        "tool": "retry_failed_job",
+        "args": {
+          "job_id": "JOB-SIM-002",
+          "expected_status": "dead",
+          "reason": "operator approved synthetic demo retry",
+          "idempotency_key": "demo-a4eeb6143b0450dd"
+        },
+        "rationale": "Single-job retry with optimistic status and idempotency"
+      },
+      "agents_used": [
+        "supervisor",
+        "remediation"
+      ],
+      "step_count": 3
+    }
+  }
+]

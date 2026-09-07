@@ -1,0 +1,26 @@
+Riverwash SafeOps MAS verification
+Date: 2026-09-07
+Environment: WSL Ubuntu-24.04, Python 3.12.3
+
+ruff check .
+All checks passed!
+
+pytest -q
+.......................                                                  [100%]
+23 passed
+
+python evals.py
+Scenario evals: 6/6 passed
+
+python red_team.py
+Red-team: 7/7 passed
+
+Live smoke tests:
+- LangGraph + GPT-5.4 mini Responses API + MCP: passed, 3/3 queries
+- AutoGen AgentChat + GPT-5.4 mini Chat Completions + MCP: passed, 3/3 queries
+
+LangSmith observability:
+- EU API authentication: passed
+- Project: riverwash-safeops-mas
+- Public sanitized root traces: 4/4 return HTTP 200
+- Routes covered: Monitor, Investigator, Researcher, Remediation/HITL

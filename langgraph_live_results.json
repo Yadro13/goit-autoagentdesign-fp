@@ -1,0 +1,56 @@
+[
+  {
+    "query": "Перевір health і черги воркерів",
+    "route": "monitor",
+    "agents_used": [
+      "supervisor",
+      "monitor"
+    ],
+    "tools_called": [
+      "get_system_health",
+      "inspect_operations"
+    ],
+    "usage": {
+      "input_tokens": 722,
+      "output_tokens": 408
+    },
+    "latency_ms": 6213.047,
+    "answer": "Поточний стан: **healthy**.\n\n### Готовність воркерів\n- `crm_webhook_worker` — ready: **true**, healthy: **true**, heartbeat **42s**\n- `bonus_side_effect_worker` — ready: **true**, healthy: **true**, heartbeat **37s**\n- `bonus_projection_worker` — ready: **true**, healthy: **true**, heartbeat **55s**\n- `scheduler` — ready: **true**, healthy: **true**, heartbeat **71s**\n- `order_status_notifier` — ready: **true**, healthy: **true**, heartbeat **29s**\n\n### Черги / операції за останні 60 хв\n- `done`: **2**\n- `retry`: **0**\n- `dead`: **1**\n\n### Активні проблеми\n- `JOB-SIM-002` — `bonus_projection_worker`, статус **dead**, 4 спроби, `UpstreamTimeout`, HTTP **504**, `endpoint_class=bonus_projection_write`, `recovered=false`\n\n### Історія з відновленням\n- `JOB-SIM-003` — `order_status_notifier`, статус **done**, 2 спроби, `TerminalRecipientError`, `endpoint_class=notification_send`, `recovered=true`"
+  },
+  {
+    "query": "Розслідуй інцидент bonus projection та перевір integrity",
+    "route": "finish",
+    "agents_used": [
+      "supervisor",
+      "investigator"
+    ],
+    "tools_called": [
+      "inspect_operations",
+      "check_bonus_integrity",
+      "search_knowledge"
+    ],
+    "usage": {
+      "input_tokens": 1242,
+      "output_tokens": 726
+    },
+    "latency_ms": 10823.502,
+    "answer": "Провів розслідування **bonus projection** та перевірку **integrity**.\n\n### Що знайдено\n- **Інтегріті в цілому збережено**:\n  - `negative_balances = 0`\n  - `reserved_exceeds_balance = 0`\n  - `outcomes_without_ledger = 0`\n- Але є **1 порушення**:\n  - `stuck_projections = 1`\n\n### Симптоми інциденту\n- У вікні 60 хв:\n  - `bonus_projection_worker` має **dead job**\n  - `attempts = 4`\n  - причина: **UpstreamTimeout**\n  - HTTP: **504**\n  - endpoint class: `bonus_projection_write`\n  - `recovered = false`\n\n### Інтерпретація\n- Це схоже на **частковий збій bonus projection**, де основна бізнес-інтегріті не зламана, але **одна проєкція зависла** через проблеми з upstream-записом.\n- За runbook-логікою це слід трактувати як **active failure**, а не recovered event.\n\n### Висновок\n- **Критичної масової шкоди не видно**\n- **Є локальний інцидент**, пов’язаний із `bonus_projection_worker`\n- **Ризик**: застрягла проєкція може вимагати ручного розбору/повторної обробки\n\n### Невизначеність\n- З доступних даних не видно, чи є це **єдиний** stuck projection або лише перший виявлений.\n- Також немає деталей, чи upstream timeout був короткочасним чи триває зараз."
+  },
+  {
+    "query": "Який runbook визначає безпечний retry та HITL?",
+    "route": "researcher",
+    "agents_used": [
+      "supervisor",
+      "researcher"
+    ],
+    "tools_called": [
+      "search_knowledge"
+    ],
+    "usage": {
+      "input_tokens": 554,
+      "output_tokens": 253
+    },
+    "latency_ms": 8220.568,
+    "answer": "Runbook **RB-004** визначає безпечний retry та HITL:  \n- **retry лише одного верифікованого job**  \n- з **очікуваним статусом**  \n- з **idempotency key**  \n- і лише після **human approval**  \n- **bulk retry заборонено**\n\nЦе **політика runbook**, не підтвердження поточного стану системи."
+  }
+]

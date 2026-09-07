@@ -1,0 +1,34 @@
+{
+  "verified_at": "2026-09-07T20:49:00+03:00",
+  "region": "GCP EU",
+  "api_endpoint": "https://eu.api.smith.langchain.com",
+  "project": "riverwash-safeops-mas",
+  "sanitized_standalone_data_only": true,
+  "production_data_included": false,
+  "traces": [
+    {
+      "route": "supervisor -> monitor",
+      "run_id": "01a07cfa-6d77-77c0-9dc5-63dae98a55ea",
+      "url": "https://eu.smith.langchain.com/public/0c416a47-a863-434e-9f09-ccb12c6f623d/r",
+      "http_status_verified": 200
+    },
+    {
+      "route": "supervisor -> investigator (plan-and-execute)",
+      "run_id": "01a07cfb-f631-7103-9599-c757397f2097",
+      "url": "https://eu.smith.langchain.com/public/3485a3e4-bc5d-46d0-ba2c-f625e3adfde8/r",
+      "http_status_verified": 200
+    },
+    {
+      "route": "supervisor -> researcher (ChromaDB RAG)",
+      "run_id": "01a07cfc-340b-7ad0-a970-077dc909a65f",
+      "url": "https://eu.smith.langchain.com/public/cf9392ef-93d9-4120-8493-3a05d40a003f/r",
+      "http_status_verified": 200
+    },
+    {
+      "route": "supervisor -> remediation (persisted HITL interrupt)",
+      "run_id": "01a07cfc-8bfa-7653-8bd7-9362fb3925a6",
+      "url": "https://eu.smith.langchain.com/public/78da9937-1dcf-4f69-a415-cc8879a2efc9/r",
+      "http_status_verified": 200
+    }
+  ]
+}

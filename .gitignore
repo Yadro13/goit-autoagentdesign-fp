@@ -1,0 +1,24 @@
+.env
+.env.local
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+# Обов'язкові sanitized sample DB/Chroma входять у submission.
+# Ігноруються лише transient SQLite-файли та red-team scratch.
+agent_state.db-wal
+agent_state.db-shm
+safeops.db-wal
+safeops.db-shm
+red_team_state.db*
+red_team_safeops.db*
+artifacts/live/
+red_team_chroma/
+red_team_trajectory.json
+*.zip

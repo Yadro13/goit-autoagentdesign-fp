@@ -1,0 +1,111 @@
+[
+  {
+    "framework": "AutoGen AgentChat",
+    "selected_agent": "monitor_agent",
+    "messages": [
+      {
+        "source": "user",
+        "content": "Перевір health і queue воркерів"
+      },
+      {
+        "source": "SelectorGroupChatManager",
+        "content": "['monitor_agent']"
+      },
+      {
+        "source": "monitor_agent",
+        "content": "[FunctionCall(id='call_pZq3qWM9WfauYhEDKG0RBYW0', arguments='{\"component\": \"all\", \"max_age_seconds\": 300}', name='get_system_health'), FunctionCall(id='call_lirq4KhwWaxcQuvJJY9Ul8gN', arguments='{\"component\": \"all\", \"window_minutes\": 60, \"include_recovered\": true}', name='inspect_operations')]"
+      },
+      {
+        "source": "monitor_agent",
+        "content": "[FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"overall\": \"healthy\",\\n    \"components\": [\\n      {\\n        \"name\": \"crm_webhook_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 42,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"bonus_side_effect_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 37,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"bonus_projection_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 55,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"scheduler\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 71,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"order_status_notifier\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 29,\\n        \"healthy\": true\\n      }\\n    ],\\n    \"source\": \"sanitized_standalone_fixture\"\\n  }\\n}', name='get_system_health', call_id='call_pZq3qWM9WfauYhEDKG0RBYW0', is_error=False), FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"counts\": {\\n      \"done\": 2,\\n      \"retry\": 0,\\n      \"dead\": 1\\n    },\\n    \"jobs\": [\\n      {\\n        \"job_id\": \"JOB-SIM-001\",\\n        \"component\": \"crm_webhook_worker\",\\n        \"status\": \"done\",\\n        \"attempts\": 1\\n      },\\n      {\\n        \"job_id\": \"JOB-SIM-002\",\\n        \"component\": \"bonus_projection_worker\",\\n        \"status\": \"dead\",\\n        \"attempts\": 4,\\n        \"error_kind\": \"UpstreamTimeout\",\\n        \"http_status\": 504,\\n        \"endpoint_class\": \"bonus_projection_write\",\\n        \"recovered\": false\\n      },\\n      {\\n        \"job_id\": \"JOB-SIM-003\",\\n        \"component\": \"order_status_notifier\",\\n        \"status\": \"done\",\\n        \"attempts\": 2,\\n        \"error_kind\": \"TerminalRecipientError\",\\n        \"endpoint_class\": \"notification_send\",\\n        \"recovered\": true\\n      }\\n    ],\\n    \"window_minutes\": 60,\\n    \"pii_redacted\": true\\n  }\\n}', name='inspect_operations', call_id='call_lirq4KhwWaxcQuvJJY9Ul8gN', is_error=False)]"
+      },
+      {
+        "source": "monitor_agent",
+        "content": "Health: overall healthy.\n\nReady components:\n- crm_webhook_worker — ready, heartbeat age 42s, healthy\n- bonus_side_effect_worker — ready, heartbeat age 37s, healthy\n- bonus_projection_worker — ready, heartbeat age 55s, healthy\n- scheduler — ready, heartbeat age 71s, healthy\n- order_status_notifier — ready, heartbeat age 29s, healthy\n\nQueue facts:\n- done: 2\n- retry: 0\n- dead: 1\n\nActive failures:\n- JOB-SIM-002 — component: bonus_projection_worker, status: dead, attempts: 4, error_kind: UpstreamTimeout, http_status: 504, endpoint_class: bonus_projection_write, recovered: false\n\nRecovered history:\n- JOB-SIM-003 — component: order_status_notifier, status: done, attempts: 2, error_kind: TerminalRecipientError, endpoint_class: notification_send, recovered: true\n\nTERMINATE"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1253,
+      "completion_tokens": 268
+    },
+    "latency_ms": 4601.651
+  },
+  {
+    "framework": "AutoGen AgentChat",
+    "selected_agent": "investigator_agent",
+    "messages": [
+      {
+        "source": "user",
+        "content": "Розслідуй incident bonus projection та integrity"
+      },
+      {
+        "source": "SelectorGroupChatManager",
+        "content": "['investigator_agent']"
+      },
+      {
+        "source": "investigator_agent",
+        "content": "План:\n1) Перевірити загальну цілісність бонусних даних.\n2) Окремо подивитися на ledger/projection інваріанти, щоб локалізувати клас проблеми.\n3) Зіставити з оперативним станом/чергами на випадок відкладених або повторних задач, що могли вплинути на projections.\n4) За потреби звірити з релевантними recovery/runbook знаннями.\n\nПочинаю з read-only перевірок у паралельних інструментах, де це можливо."
+      },
+      {
+        "source": "investigator_agent",
+        "content": "[FunctionCall(id='call_JFPgVkML3kaOCHMDgHe03b2Y', arguments='{\"scope\": \"all\", \"sample_limit\": 1000}', name='check_bonus_integrity'), FunctionCall(id='call_HaTwvuSaSNtlgDcHBFgGJtjV', arguments='{\"component\": \"all\", \"window_minutes\": 60, \"include_recovered\": true}', name='inspect_operations'), FunctionCall(id='call_8GjxC0rEUoD2qLXVb4ydPxsW', arguments='{\"component\": \"all\", \"max_age_seconds\": 300}', name='get_system_health'), FunctionCall(id='call_vkzm7KvrGdUKnCrdjDZSwcJK', arguments='{\"query\": \"bonus projection integrity incident recovery runbook ledger projection mismatch retry dead letter safeops\", \"top_k\": 3}', name='search_knowledge')]"
+      },
+      {
+        "source": "investigator_agent",
+        "content": "[FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"accounts_checked\": 560,\\n    \"negative_balances\": 0,\\n    \"reserved_exceeds_balance\": 0,\\n    \"outcomes_without_ledger\": 0,\\n    \"stuck_projections\": 1,\\n    \"scope\": \"all\",\\n    \"sample_limit\": 1000,\\n    \"violations\": 1\\n  }\\n}', name='check_bonus_integrity', call_id='call_JFPgVkML3kaOCHMDgHe03b2Y', is_error=False), FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"counts\": {\\n      \"done\": 2,\\n      \"retry\": 0,\\n      \"dead\": 1\\n    },\\n    \"jobs\": [\\n      {\\n        \"job_id\": \"JOB-SIM-001\",\\n        \"component\": \"crm_webhook_worker\",\\n        \"status\": \"done\",\\n        \"attempts\": 1\\n      },\\n      {\\n        \"job_id\": \"JOB-SIM-002\",\\n        \"component\": \"bonus_projection_worker\",\\n        \"status\": \"dead\",\\n        \"attempts\": 4,\\n        \"error_kind\": \"UpstreamTimeout\",\\n        \"http_status\": 504,\\n        \"endpoint_class\": \"bonus_projection_write\",\\n        \"recovered\": false\\n      },\\n      {\\n        \"job_id\": \"JOB-SIM-003\",\\n        \"component\": \"order_status_notifier\",\\n        \"status\": \"done\",\\n        \"attempts\": 2,\\n        \"error_kind\": \"TerminalRecipientError\",\\n        \"endpoint_class\": \"notification_send\",\\n        \"recovered\": true\\n      }\\n    ],\\n    \"window_minutes\": 60,\\n    \"pii_redacted\": true\\n  }\\n}', name='inspect_operations', call_id='call_HaTwvuSaSNtlgDcHBFgGJtjV', is_error=False), FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"overall\": \"healthy\",\\n    \"components\": [\\n      {\\n        \"name\": \"crm_webhook_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 42,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"bonus_side_effect_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 37,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"bonus_projection_worker\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 55,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"scheduler\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 71,\\n        \"healthy\": true\\n      },\\n      {\\n        \"name\": \"order_status_notifier\",\\n        \"ready\": true,\\n        \"heartbeat_age_seconds\": 29,\\n        \"healthy\": true\\n      }\\n    ],\\n    \"source\": \"sanitized_standalone_fixture\"\\n  }\\n}', name='get_system_health', call_id='call_8GjxC0rEUoD2qLXVb4ydPxsW', is_error=False), FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"query\": \"bonus projection integrity incident recovery runbook ledger projection mismatch retry dead letter safeops\",\\n    \"results\": [\\n      {\\n        \"id\": \"RB-005\",\\n        \"topic\": \"incident\",\\n        \"text\": \"Classify active failures separately from recovered events. Stale state, dead jobs and integrity violations require attention.\",\\n        \"score\": 0.2668\\n      },\\n      {\\n        \"id\": \"RB-002\",\\n        \"topic\": \"queues\",\\n        \"text\": \"Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.\",\\n        \"score\": 0.1862\\n      },\\n      {\\n        \"id\": \"RB-003\",\\n        \"topic\": \"integrity\",\\n        \"text\": \"Balance must stay non-negative, reserved cannot exceed balance, every outcome requires a ledger record, and projections cannot remain stuck.\",\\n        \"score\": 0.164\\n      }\\n    ]\\n  }\\n}', name='search_knowledge', call_id='call_vkzm7KvrGdUKnCrdjDZSwcJK', is_error=False)]"
+      },
+      {
+        "source": "investigator_agent",
+        "content": "Зібрано достатньо сигналів для первинного висновку. Додатково уточню, чи проблема обмежується projections або є ширша integrity/ledger аномалія, через окрему перевірку scope `projections`."
+      },
+      {
+        "source": "investigator_agent",
+        "content": "[FunctionCall(id='call_1Vy0IDf2pRFEY5hbYEylHkpX', arguments='{\"scope\":\"projections\",\"sample_limit\":1000}', name='check_bonus_integrity')]"
+      },
+      {
+        "source": "investigator_agent",
+        "content": "[FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"accounts_checked\": 560,\\n    \"negative_balances\": 0,\\n    \"reserved_exceeds_balance\": 0,\\n    \"outcomes_without_ledger\": 0,\\n    \"stuck_projections\": 1,\\n    \"scope\": \"projections\",\\n    \"sample_limit\": 1000,\\n    \"violations\": 1\\n  }\\n}', name='check_bonus_integrity', call_id='call_1Vy0IDf2pRFEY5hbYEylHkpX', is_error=False)]"
+      },
+      {
+        "source": "investigator_agent",
+        "content": "Розслідування завершено на read-only даних.\n\nВисновок:\n- Є **1 порушення integrity**, і воно локалізується в **projections**:\n  - `stuck_projections: 1`\n- Інші базові інваріанти виглядають чистими:\n  - `negative_balances: 0`\n  - `reserved_exceeds_balance: 0`\n  - `outcomes_without_ledger: 0`\n\nОпераційні сигнали:\n- Є **1 dead job** у вікні 60 хв:\n  - `component: bonus_projection_worker`\n  - `status: dead`\n  - `attempts: 4`\n  - `error_kind: UpstreamTimeout`\n  - `http_status: 504`\n  - `endpoint_class: bonus_projection_write`\n  - `recovered: false`\n- Це добре узгоджується з єдиною аномалією `stuck_projections`.\n\nСтан системи:\n- Health загалом `healthy`\n- Усі перевірені компоненти `ready=true`, heartbeat свіжий\n\nІнтерпретація:\n- Найімовірніше, incident — це **зависла projection-обробка**, а не проблема з балансами чи ledger у ширшому сенсі.\n- Ключовий тригер, схоже, був **UpstreamTimeout** на `bonus_projection_write`, після чого задача перейшла в `dead` і projection не відновився.\n- Поки що немає ознак масового збою або каскадної деградації.\n\nРекомендація:\n- Пріоритетно перевірити/відновити саме `bonus_projection_worker` pipeline.\n- Окремо подивитися на upstream для `bonus_projection_write` та механізм re-drive/recovery для dead job.\n- Якщо треба, наступним кроком можу зібрати короткий incident summary або допомогти сформувати дію для remediation.\n\nTERMINATE"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 3852,
+      "completion_tokens": 773
+    },
+    "latency_ms": 9365.729
+  },
+  {
+    "framework": "AutoGen AgentChat",
+    "selected_agent": "researcher_agent",
+    "messages": [
+      {
+        "source": "user",
+        "content": "Знайди runbook щодо idempotent retry і HITL"
+      },
+      {
+        "source": "SelectorGroupChatManager",
+        "content": "['researcher_agent']"
+      },
+      {
+        "source": "researcher_agent",
+        "content": "[FunctionCall(id='call_8vKE6H3l1KvixALjg8GBvfiB', arguments='{\"query\":\"runbook idempotent retry HITL safeops recovery security policy\", \"top_k\": 5}', name='search_knowledge')]"
+      },
+      {
+        "source": "researcher_agent",
+        "content": "[FunctionExecutionResult(content='{\\n  \"status\": \"ok\",\\n  \"data\": {\\n    \"query\": \"runbook idempotent retry HITL safeops recovery security policy\",\\n    \"results\": [\\n      {\\n        \"id\": \"RB-004\",\\n        \"topic\": \"remediation\",\\n        \"text\": \"Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.\",\\n        \"score\": 0.1512\\n      },\\n      {\\n        \"id\": \"RB-002\",\\n        \"topic\": \"queues\",\\n        \"text\": \"Inspect pending, retry, dead, oldest age and attempts. Growing backlog or any dead job requires operator attention.\",\\n        \"score\": 0.1279\\n      },\\n      {\\n        \"id\": \"RB-005\",\\n        \"topic\": \"incident\",\\n        \"text\": \"Classify active failures separately from recovered events. Stale state, dead jobs and integrity violations require attention.\",\\n        \"score\": 0.0691\\n      },\\n      {\\n        \"id\": \"RB-009\",\\n        \"topic\": \"change\",\\n        \"text\": \"Read-only API migration may use fallback. Writes require an explicit compensation contract and tested rollback.\",\\n        \"score\": 0.046\\n      },\\n      {\\n        \"id\": \"RB-008\",\\n        \"topic\": \"notifications\",\\n        \"text\": \"A handled terminal recipient error with fallback is recovered; an unhandled repeated send failure is active.\",\\n        \"score\": 0.0438\\n      }\\n    ]\\n  }\\n}', name='search_knowledge', call_id='call_8vKE6H3l1KvixALjg8GBvfiB', is_error=False)]"
+      },
+      {
+        "source": "researcher_agent",
+        "content": "Знайдено відповідний runbook у ChromaDB:\n\n- **RB-004** — **remediation**  \n  Текст: *“Retry exactly one verified job with expected status, idempotency key and human approval. Bulk retry is prohibited.”*\n\nЦе найближчий runbook до **idempotent retry** і **HITL** (human-in-the-loop).  \nЩо важливо:\n- **Політика / runbook:** дозволяється лише **один перевірений job**;\n- потрібні **idempotency key** та **human approval**;\n- **bulk retry заборонений**.\n\nТакож релевантний:\n- **RB-002** — про черги та ознаки, коли потрібна увага оператора: pending/retry/dead jobs, ріст backlog.\n\n**Дистанціюю політику від live state:**  \nЦе лише знання з runbook, не підтвердження поточного стану системи.\n\nTERMINATE"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 842,
+      "completion_tokens": 251
+    },
+    "latency_ms": 3768.298
+  }
+]

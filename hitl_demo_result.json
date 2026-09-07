@@ -1,0 +1,17 @@
+{
+  "thread_id": "hitl-c779bc7663",
+  "interrupted": true,
+  "decision": {
+    "action": "approve",
+    "reason": "operator CLI demo"
+  },
+  "answer": "{\n  \"agent\": \"remediation\",\n  \"query\": \"Виконай retry для JOB-SIM-002\",\n  \"evidence\": {\n    \"approved_action\": \"retry_failed_job\",\n    \"result\": {\n      \"status\": \"ok\",\n      \"data\": {\n        \"remediation_id\": \"REM-2F871D715E\",\n        \"job_id\": \"JOB-SIM-002\",\n        \"previous_status\": \"dead\",\n        \"new_status\": \"retry\",\n        \"idempotent_replay\": false\n      },\n      \"_call_signature\": \"[\\\"remediation\\\", \\\"retry_failed_job\\\", {\\\"expected_status\\\": \\\"dead\\\", \\\"idempotency_key\\\": \\\"demo-a4eeb6143b0450dd\\\", \\\"job_id\\\": \\\"JOB-SIM-002\\\", \\\"reason\\\": \\\"operator approved synthetic demo retry\\\"}]\"\n    }\n  }\n}",
+  "approval": {
+    "action": "approve",
+    "reason": "operator CLI demo",
+    "args": null
+  },
+  "tools_called": [
+    "retry_failed_job"
+  ]
+}
