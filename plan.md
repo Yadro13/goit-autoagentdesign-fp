@@ -3,7 +3,7 @@
 Status: implemented, verified and ready for submission on 2026-09-07
 Source spec: повідомлення користувача від 2026-09-07 та чотири додані матеріали з базовим, просунутим, експертним і зведеним завданням
 Source project: `C:\dev\Hometasks\ht03`, commit `f28187d656e35edca22f8605a5f4c91e37452c1f`
-Repository: `https://github.com/Yadro13/goit-autoagentdesign-fp` (target confirmed by owner)
+Repository: `https://github.com/Yadro13/goit-autoagentdesign-fp`, public `main`, published and verified
 Owner: Denis (рішення), Codex (реалізація та перевірка)
 Updated: 2026-09-07
 
